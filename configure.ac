@@ -52,11 +52,13 @@ AC_CHECK_DECL(strsep, MY_DEFINE(HAVE_STRSEP))
 AC_CHECK_HEADERS(sys/time.h)
 AC_HEADER_TIME
 AC_TYPE_OFF_T
-AC_CHECK_TYPES([in_port_t, socklen_t], , , 
+AC_CHECK_TYPES([in_port_t, socklen_t], , ,
 	[#include <sys/types.h>
 	 #include <sys/socket.h>
 	 #include <netinet/in.h>])
 AC_CHECK_MEMBERS(fpos_t.__pos,,, [#include <stdio.h>])
+AC_ARG_ENABLE([frontend], AS_HELP_STRING([--disable-frontend], [Turn off compiling the frontend]), enable_frontend=$enableval, enable_frontend=false)
+AM_CONDITIONAL([FRONTEND], [test x$enable_frontend = xtrue])
 
 AC_OUTPUT([
 common/Makefile
